@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # USER BASHRC (~/.bashrc)
 
-echo "USER BASHRC SOURCED (~/.bashrc)..."
+[[ "${1:-}" == '-v' ]] \
+    && echo "USER BASHRC SOURCED (~/.bashrc)..."
 
 [[ -z "${bashenv}" && -d "${HOME}/Developer/bashenv" ]] \
     && . "${HOME}/Developer/bashenv"

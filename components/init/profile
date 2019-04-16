@@ -1,7 +1,8 @@
 #!/usr/bin/env sh
 # USER SH CONFIG
 
-printf "USER PROFILE SOURCED (%s)...\n" "~/.profile"
+[[ "${1:-}" == '-v' ]] \
+    && printf "USER PROFILE SOURCED (%s)...\n" "~/.profile"
 
 export MYNAME='Ken Dait'
 export EMAIL='snaginanek@gmail.com'

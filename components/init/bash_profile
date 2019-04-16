@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # USER BASH PROFILE (~/.bash_profile)
 
-echo "USER BASH PROFILE SOURCED (~/.bash_profile)"
+[[ "${1:-}" == '-v' ]] \
+    && echo "USER BASH PROFILE SOURCED (~/.bash_profile)"
 
 ## LOCATION OF BASHENV REPOSITORY ROOT DIRECTORY
 ##  -> ~/Developer/bashenv
