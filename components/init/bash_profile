@@ -6,7 +6,8 @@ echo "USER BASH PROFILE SOURCED (~/.bash_profile)"
 ## LOCATION OF BASHENV REPOSITORY ROOT DIRECTORY
 ##  -> ~/Developer/bashenv
 
-[[ -d "${HOME}/Developer/bashenv" ]] \
+[[ -z "${bashenv:-}" ]] \
+    && [[ -d "${HOME}/Developer/bashenv" ]] \
     && declare -xr bashenv="${HOME}/Developer/bashenv"
 
 [[ -r ~/.profile ]] && . ~/.profile
