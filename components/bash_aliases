@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# USER BASH ALIASES
+
+# LS ALIASES
+#
+{
+    if [[ "$(uname -s)" == 'Darwin' ]]; then
+        alias ls='/bin/ls -G'
+    else
+        alias ls='/bin/ls --color=auto'
+    fi
+
+    alias la='ls -A'
+    alias ll='ls -l'
+    alias lla='ls -lA'
+    alias l1='ls -1'
+    alias lm='ls -m'
+    
+    alias l.='ls -d .[^$.]*'
+    alias ll.='ls -dl .[^$.]*'
+    alias l1.='ls -d1 .[^$.]*'
+    alias lm.='ls -dm .[^$.]*'
+
+}
+
+
+alias sbash='[ -r ~/.bash_profile ] && . ~/.bash_profile'
+
+alias x=' logout'
+alias h=' history'
+alias j=' jobs'
+alias c=' clear'
+

@@ -5,7 +5,7 @@
     && printf "USER PROFILE SOURCED (%s)...\n" "~/.profile"
 
 export MYNAME='Ken Dait'
-export EMAIL='snaginanek@gmail.com'
+export MYMAIL='snaginanek@gmail.com'
 export EDITOR='vim'
 export SUDOEDITOR='vim'
 export FCEDIT='vim'

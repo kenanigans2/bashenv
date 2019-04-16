@@ -11,29 +11,41 @@
 ## ALIASES & FUNCTIONS
 #
 {
-    export funcs="${bashenv:?}/components/funcs"
-    if [[ ! -d "${funcs}" ]]; then
-        unset funcs
-    else
-        __list_funcDir_contents ()
-        {
-            find "${funcs}" -type f -mindepth 1 -maxdepth 1 \! \( -name ".*" -or -name "*.swp" \)
-            return
-        }
-        
-        declare -xA funcnames
-        funcnames=()
+    ## SOURCE ALIASES
+    #
+    {
+        if [[ -r "${bashenv}/components/bash_aliases" ]]; then
+            . "${bashenv}/components/bash_aliases"
+        fi
+    }
 
-        while read -r funcpath; do
-            bn="$(basename "${funcpath}" | sed 's:\.[^.]*$::')"
-            if [[ -r "${funcpath}" ]]; then
-                source "${funcpath}" \
-                    && funcnames["$(basename "${funcpath}")"]="${funcpath}"
-            else
-                echo "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck"
-            fi
-        done < <(__list_funcDir_contents)
-    fi
+    ## SOURCE FUNCTIONS
+    #
+    {
+        export funcs="${bashenv:?}/components/funcs"
+        if [[ ! -d "${funcs}" ]]; then
+            unset funcs
+        else
+            __list_funcDir_contents ()
+            {
+                find "${funcs}" -type f -mindepth 1 -maxdepth 1 \! \( -name ".*" -or -name "*.swp" \)
+                return
+            }
+            
+            declare -xA funcnames
+            funcnames=()
+
+            while read -r funcpath; do
+                bn="$(basename "${funcpath}" | sed 's:\.[^.]*$::')"
+                if [[ -r "${funcpath}" ]]; then
+                    source "${funcpath}" \
+                        && funcnames["$(basename "${funcpath}")"]="${funcpath}"
+                else
+                    echo "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck"
+                fi
+            done < <(__list_funcDir_contents)
+        fi
+    }
 
 }
 
