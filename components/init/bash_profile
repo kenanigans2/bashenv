@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# USER BASH PROFILE (~/.bash_profile)
+
+echo "USER BASH PROFILE SOURCED (~/.bash_profile)"
+
+## LOCATION OF BASHENV REPOSITORY ROOT DIRECTORY
+##  -> ~/Developer/bashenv
+
+[[ -d "${HOME}/Developer/bashenv" ]] \
+    && declare -xr bashenv="${HOME}/Developer/bashenv"
+
+[[ -r ~/.profile ]] && . ~/.profile
+
+[[ -r ~/.bashrc ]] && . ~/.bashrc
+
+
