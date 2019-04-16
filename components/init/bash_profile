@@ -1,18 +1,59 @@
 #!/usr/bin/env bash
 # USER BASH PROFILE (~/.bash_profile)
 
-[[ "${1:-}" == '-v' ]] \
-    && echo "USER BASH PROFILE SOURCED (~/.bash_profile)"
+## SET `$bashenv' VARIABLE with path to project directory
+##
+{
+    [[ "${1:-}" == '-v' ]] \
+        && echo "USER BASH PROFILE SOURCED (~/.bash_profile)"
+}
 
 ## LOCATION OF BASHENV REPOSITORY ROOT DIRECTORY
 ##  -> ~/Developer/bashenv
+{
+    [[ -z "${bashenv:-}" ]] \
+        && [[ -d "${HOME}/Developer/bashenv" ]] \
+        && declare -xr bashenv="${HOME}/Developer/bashenv"
+    [[ -r ~/.profile ]] && . ~/.profile
+    [[ -r ~/.bashrc ]] && . ~/.bashrc
+}
 
-[[ -z "${bashenv:-}" ]] \
-    && [[ -d "${HOME}/Developer/bashenv" ]] \
-    && declare -xr bashenv="${HOME}/Developer/bashenv"
+## CONFIGURE HISTORY
+##
+{
+    __verify_hist_file_locations ()
+    {
+        local varname original_path new_path
+        varname="${1:?}" original_path="${2:?}" new_path="${3:?}"
 
-[[ -r ~/.profile ]] && . ~/.profile
+        [[ ! -f "${new_path}" ]] \
+            && touch "${new_path}"
 
-[[ -r ~/.bashrc ]] && . ~/.bashrc
+        [[ -z "${!varname}" ]] \
+            && eval "export \"${varname}\"=\"${new_path}\""
 
+        if [[ -f "${original_path}" ]]; then
+            trap '[ -f "${original_path}" ] && rm "${original_path}"' RETURN HUP STOP
+            [ -s "${original_path}" ] \
+                && cat "${original_path}" >> "${new_path}"
+        fi
+        return
+    }
 
+    [[ ! -d ~/.history ]] \
+        && mkdir ~/.history
+
+    export HISTSIZE=10000
+    export HISTFILESIZE=10000
+    export HISTCONTROL=ignoreboth
+    __verify_hist_file_locations MYSQL_HISTFILE ~/.{,history/}mysql_history
+    __verify_hist_file_locations LESSHISTFILE ~/.lesshst ~/.history/less_history
+    unset -f __verify_hist_file_locations
+}
+
+## OTHER ENV VARS
+##
+{
+    export CDPATH=.:${HOME}
+    export GLOBIGNORE=.DS_Store:.CFUserTextEncoding:.localized
+}
