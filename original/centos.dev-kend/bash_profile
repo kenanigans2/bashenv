@@ -1,0 +1,16 @@
+# .bash_profile
+
+[[ -z "${bashenv:-}" ]] \
+	&& declare -xr bashenv="${HOME}/Developer/bashenv"
+
+# Get the aliases and functions
+[ -f ~/.bashrc ] && . ~/.bashrc
+
+# User specific environment and startup programs
+
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
+
+export PATH
+
+export PS1='[\[\e[35;1m\]\u\[\e[0;0m\]@\h \W]\$ '
+
