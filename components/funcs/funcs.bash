@@ -31,6 +31,45 @@ funcs ()
         return
     }
 
+    __delete_existing_file ()
+    {
+        if [[ -f "$(echo "${funcs:?}/${OPTARG}"*)" ]]; then
+            targetToDelete=$(echo "${funcs}/${OPTARG}"*)
+            local -l REPLY
+            REPLY=
+            read -rp "OKAY TO DELETE -- ${targetToDelete}? (y/N) " REPLY
+            case "${REPLY:0:1}" in
+                y)
+                    rm "${targetToDelete}"
+                    [[ ! -f "${targetToDelete}" ]] \
+                        && echo "SUCCESS"\! \
+                        || echo "ERROR: failed to delete specified file -- ${targetToDelete}" >&2
+                    ;;
+                *)
+                    echo "ERROR: failed to delete specified file -- ${targetToDelete}" >&2
+                    ;;
+            esac
+        else
+            file "${funcs}/${OPTARG}"*
+        fi
+        return
+    }
+
+    __edit_existing_file ()
+    {
+        targetFile="${OPTARG}"
+        funcname="$(echo "${targetFile}" | sed -e 's:^.*/::' -e 's:\.bash$::')"
+        [[ "${targetFile##*.}" != 'bash' ]] \
+            && targetFile+=".bash"
+        targetFilePath="${funcs:?}/${targetFile}"
+        if [[ -r "${targetFilePath}" ]]; then
+            echo "EDITING FILE... ${targetFile}"
+            ${EDITOR:-vim} "${targetFilePath}"
+        fi
+
+        return
+    }
+
     __create_new_func_file ()
     {
         echo "ADDING NEW: ${OPTARG}"
@@ -51,15 +90,15 @@ funcs ()
             echo "CREATING FILE... ${targetFilePath}"
             ## PROCEED TO CREATE FILE
             touch "${targetFilePath}"
-            cat <<-EOF >> "${targetFilePath}"
-                #!/usr/bin/env bash
-                # ${funcname}
+            cat <<EOF >> "${targetFilePath}"
+#!/usr/bin/env bash
+# ${funcname}
 
-                ${funcname} ()
-                {
-                    echo
-                    return
-                }
+${funcname} ()
+{
+    echo
+    return
+}
 EOF
         fi
         return
@@ -77,6 +116,14 @@ EOF
         OPTIND=1
         while getopts :l1e:n:d: opt; do
             case ${opt} in
+                d)
+                    ## DELETE EXISTING
+                    __delete_existing_file
+                    ;;
+                e)
+                    ## EDIT EXISTING
+                    __edit_existing_file
+                    ;;
                 n)
                     ## NEW
                     __create_new_func_file
