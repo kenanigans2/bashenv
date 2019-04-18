@@ -44,7 +44,8 @@
         && mkdir ~/.history
 
     [[ -f ~/.bash_history ]] \
-        && cat ~/.bash_history >> ~/.history/bash_history
+        && cat ~/.bash_history >> ~/.history/bash_history \
+        && rm ~/.bash_history
 
     export HISTSIZE=10000
     export HISTFILESIZE=10000
@@ -54,6 +55,7 @@
     __verify_hist_file_locations MYSQL_HISTFILE ~/.{,history/}mysql_history
     __verify_hist_file_locations LESSHISTFILE ~/.lesshst ~/.history/less_history
     __verify_hist_file_locations MYCLI_HISTFILE ~/.mycli-history ~/.history/mycli_history
+    __verify_hist_file_locations PYTHON_HISTFILE ~/.python_history ~/.history/python_history
     unset -f __verify_hist_file_locations
 }
 
