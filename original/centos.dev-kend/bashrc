@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # .bashrc
 
 # Source global definitions
@@ -9,6 +10,6 @@ fi
 # export SYSTEMD_PAGER=
 
 # User specific aliases and functions
-[ -r ${bashenv:?}/components/bash_aliases ] \
-	&& . ${bashenv}/components/bash_aliases
+[ -r "${bashenv:?}/components/bash_aliases" ] \
+	&& . "${bashenv}/components/bash_aliases"
 
