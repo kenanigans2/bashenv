@@ -4,8 +4,17 @@
 [[ "${1:-}" == '-v' ]] \
     && echo "USER BASHRC SOURCED (~/.bashrc)..."
 
-[[ -z "${bashenv}" && -d "${HOME}/Developer/bashenv" ]] \
+[[ -z "${bashenv:-}" && -d "${HOME}/Developer/bashenv" ]] \
     && . "${HOME}/Developer/bashenv"
+
+
+## COLORIZE ROOT PROMPT
+##
+{
+    if ((EUID==0)); then
+        PS1='\h:\W \[\e[31;1m\]\u\$\[\e[0;0m\] '
+    fi
+}
 
 
 ## ALIASES & FUNCTIONS
@@ -48,4 +57,5 @@
     }
 
 }
+
 
