@@ -26,10 +26,10 @@
         local varname original_path new_path
         varname="${1:?}" original_path="${2:?}" new_path="${3:?}"
 
-        [[ ! -f "${new_path}" ]] \
+        [[ ! -f "${new_path:-}" ]] \
             && touch "${new_path}"
 
-        [[ -z "${!varname}" ]] \
+        [[ -z "${!varname:-}" ]] \
             && eval "export \"${varname}\"=\"${new_path}\""
 
         if [[ -f "${original_path}" ]]; then
@@ -43,17 +43,52 @@
     [[ ! -d ~/.history ]] \
         && mkdir ~/.history
 
+    [[ -f ~/.bash_history ]] \
+        && cat ~/.bash_history >> ~/.history/bash_history
+
     export HISTSIZE=10000
     export HISTFILESIZE=10000
     export HISTCONTROL=ignoreboth
+    export HISTIGNORE=c:h:j:x:clear:history:jobs:exit
+
     __verify_hist_file_locations MYSQL_HISTFILE ~/.{,history/}mysql_history
     __verify_hist_file_locations LESSHISTFILE ~/.lesshst ~/.history/less_history
     unset -f __verify_hist_file_locations
 }
 
+## PROMPT - PROMPT_COMMAND
+##
+{
+    if
+        ! declare -F ps1_command &> /dev/null
+    then
+        ps1_command ()
+        {
+            local -ir xit=$?
+            if ((xit != 0)); then
+                echo -e "\\n\\t[[31;1m${xit}[0;0m]\\n"
+            else
+                echo
+            fi
+            return ${xit}
+        }
+    fi
+
+    if ! echo "${PROMPT_COMMAND:-}" | grep -q 'ps1_command'; then
+        export PROMPT_COMMAND="ps1_command${PROMPT_COMMAND:+; $PROMPT_COMMAND}"
+    fi
+
+}
+
 ## OTHER ENV VARS
 ##
 {
+    if ! echo "${PATH}" | grep -q "${HOME}/bin"; then
+        [[ ! -d ~/bin ]] && mkdir ~/bin
+        PATH="${HOME}/bin${PATH:+:$PATH}"
+    fi
+
     export CDPATH=.:${HOME}
-    export GLOBIGNORE=.DS_Store:.CFUserTextEncoding:.localized
+    export GLOBIGNORE=.DS_Store:.CFUserTextEncoding:.localized:.Trash
 }
+
