@@ -66,9 +66,7 @@
 ## PROMPT - PROMPT_COMMAND
 ##
 {
-    if
-        ! declare -F ps1_command &> /dev/null
-    then
+    if ! declare -F ps1_command &> /dev/null; then
         ps1_command ()
         {
             local -ir xit=$?
@@ -87,9 +85,20 @@
 
 }
 
+## SHELL OPTIONS
+##
+{
+    shopt -s cdable_vars extglob globstar
+}
+
 ## OTHER ENV VARS
 ##
 {
+    [[ -f ~/mbox ]] \
+        && /bin/ls -ldO ~/mbox \
+            | grep -q hidden \
+        || chflags hidden ~/mbox
+
     if ! echo "${PATH}" | grep -q "${HOME}/bin"; then
         [[ ! -d ~/bin ]] && mkdir ~/bin
         PATH="${HOME}/bin${PATH:+:$PATH}"
