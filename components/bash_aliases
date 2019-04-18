@@ -48,7 +48,6 @@ alias h='history'
 alias j='jobs'
 alias c='clear'
 
-
 if [[ "$(uname -s)" == 'Darwin' ]]; then
     alias scpt='osascript'
     alias spro='system_profiler'
@@ -58,3 +57,4 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
         alias services='brew services'
     fi
 fi
+

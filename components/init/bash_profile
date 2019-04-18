@@ -53,6 +53,7 @@
 
     __verify_hist_file_locations MYSQL_HISTFILE ~/.{,history/}mysql_history
     __verify_hist_file_locations LESSHISTFILE ~/.lesshst ~/.history/less_history
+    __verify_hist_file_locations MYCLI_HISTFILE ~/.mycli-history ~/.history/mycli_history
     unset -f __verify_hist_file_locations
 }
 
@@ -91,4 +92,10 @@
     export CDPATH=.:${HOME}
     export GLOBIGNORE=.DS_Store:.CFUserTextEncoding:.localized:.Trash
 }
+
+## BASHDB
+##
+if [[ -s "${bashenv:?}/.private" ]]; then
+    source "${bashenv}/.private"
+fi
 
