@@ -33,7 +33,7 @@
             && eval "export \"${varname}\"=\"${new_path}\""
 
         if [[ -f "${original_path}" ]]; then
-            trap '[ -f "${original_path}" ] && rm "${original_path}"' RETURN HUP STOP
+            trap '[ -f "${original_path}" ] && rm "${original_path}"' RETURN HUP
             [ -s "${original_path}" ] \
                 && cat "${original_path}" >> "${new_path}"
         fi

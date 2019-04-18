@@ -16,10 +16,10 @@
     alias l1='ls -1'
     alias lm='ls -m'
     
-    alias l.='ls -d .[^$.]*'
-    alias ll.='ls -dl .[^$.]*'
-    alias l1.='ls -d1 .[^$.]*'
-    alias lm.='ls -dm .[^$.]*'
+    alias l.='ls -d .[^$.]* 2> /dev/null || echo "<no dot files>"'
+    alias ll.='ls -dl .[^$.]* 2> /dev/null || echo "<no dot files>"'
+    alias l1.='ls -d1 .[^$.]* 2> /dev/null || echo "<no dot files>"'
+    alias lm.='ls -dm .[^$.]* 2> /dev/null || echo "<no dot files>"'
 
 }
 

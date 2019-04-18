@@ -45,12 +45,10 @@
             funcnames=()
 
             while read -r funcpath; do
-                bn="$(basename "${funcpath}" | sed 's:\.[^.]*$::')"
+                #bn="$(basename "${funcpath}" | sed 's:\.[^.]*$::')"
                 if [[ -r "${funcpath}" ]]; then
                     source "${funcpath}" \
                         && funcnames["$(basename "${funcpath}")"]="${funcpath}"
-                else
-                    echo "fuckfuckfuckfuckfuckfuckfuckfuckfuckfuckfuck"
                 fi
             done < <(__list_funcDir_contents)
         fi
