@@ -1,0 +1,11 @@
+" USER CONFIG
+
+syntax enable
+colorscheme industry
+
+set number autoindent ruler
+
+set ts=4 sw=4 sts=4 et
+
+set hls
+
