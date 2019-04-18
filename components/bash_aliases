@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # USER BASH ALIASES
 
-# LS ALIASES
+## LS ALIASES
 #
 {
     if [[ "$(uname -s)" == 'Darwin' ]]; then
@@ -23,11 +23,21 @@
 
 }
 
+## COLORIZE
+#
+{
+    alias grep='/usr/bin/grep --color=auto'
+    alias egrep='/usr/bin/egrep --color=auto'
+    alias fgrep='/usr/bin/fgrep --color=auto'
+
+    # default: LSCOLORS='exfxcxdxbxegedabagacad'
+    export LSCOLORS='gxfxcxdxbxegedabagacad'
+}
 
 alias sbash='[ -r ~/.bash_profile ] && . ~/.bash_profile'
 
-alias x=' logout'
-alias h=' history'
-alias j=' jobs'
-alias c=' clear'
+alias x='logout'
+alias h='history'
+alias j='jobs'
+alias c='clear'
 
