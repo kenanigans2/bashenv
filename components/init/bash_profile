@@ -104,6 +104,10 @@
         PATH="${HOME}/bin${PATH:+:$PATH}"
     fi
 
+    if ! echo "${PATH}" | grep -q "/usr/local/sbin"; then
+        PATH="/usr/local/sbin${PATH:+:$PATH}"
+    fi
+
     export CDPATH=.:${HOME}
     export GLOBIGNORE=.DS_Store:.CFUserTextEncoding:.localized:.Trash
 }
