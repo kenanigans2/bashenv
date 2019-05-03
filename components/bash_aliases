@@ -18,6 +18,7 @@
     
     alias l.='ls -d .[^$.]* 2> /dev/null || echo "<no dot files>"'
     alias ll.='ls -dl .[^$.]* 2> /dev/null || echo "<no dot files>"'
+    alias lll='ls -dlL .[^$.]* 2> /dev/null || echo "<no dot files>"'
     alias l1.='ls -d1 .[^$.]* 2> /dev/null || echo "<no dot files>"'
     alias lm.='ls -dm .[^$.]* 2> /dev/null || echo "<no dot files>"'
 
@@ -46,7 +47,7 @@ alias sbash='[ -r ~/.bash_profile ] && . ~/.bash_profile'
 alias x='logout'
 alias h='history'
 alias j='jobs'
-alias c='clear'
+alias c='clear;echo'
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
     alias scpt='osascript'
