@@ -12,8 +12,17 @@ update ()
 
     [[ -d ~/Developer/google-fonts/.git ]] \
         && cd ~/Developer/google-fonts \
-        && git fetch && git pull && cd ~- \
+        && echo "UPDATING: GOOGLE-FONTS REPO" \
+        && git fetch && git pull && git push && cd ~- \
         || echo "ERROR: error updating google-fonts git repo" >&2
+    hr
+
+    [[ -d ${bashenv} ]] \
+        && cd ${bashenv} \
+        && echo "UPDATING: BASHENV REPO" \
+        && git fetch && git pull && git push && cd ~- \
+        || echo "ERROR: error updating bashenv git repo" >&2
+    hr
 
     echo
     return
