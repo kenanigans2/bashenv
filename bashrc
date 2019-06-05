@@ -26,5 +26,19 @@ if [[ -d ~/.bashrc.d ]]; then
         #shellcheck disable=1090
         . ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}.bash"
     fi
+    #
+    #-:LOAD BINARY-SPECIFIC CONFIG
+    if [ -d ~/.bashrc.d/bin_config ]; then
+        while read -r FILE; do
+            #echo ">>> ${FILE}"
+            . "${FILE}"
+        done < <(find ~/.bashrc.d/bin_config -mindepth 1 -type f \
+            \! \( \
+                -name ".*" \
+                -or -name "*.swp" \
+                -or -name "_*" \
+            \)
+            )
+    fi
     unset file
 fi
