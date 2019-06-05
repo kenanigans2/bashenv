@@ -16,10 +16,16 @@ if [[ -d ~/.bashrc.d ]]; then
     done
 echo
     #
-    #-:LOAD TERM_PROGRAM SPECIFIC CONFIG
-    if [ -r ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}" ]; then
+    #-:LOAD SYSTEM-SPECIFIC CONFIG
+    if [ -r ~/.bashrc.d/sys/"$(uname)".bash ]; then
         #shellcheck disable=1090
-        . ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}"
+        . ~/.bashrc.d/sys/"$(uname)".bash
+    fi
+    #
+    #-:LOAD TERM_PROGRAM SPECIFIC CONFIG
+    if [ -r ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}.bash" ]; then
+        #shellcheck disable=1090
+        . ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}.bash"
     fi
 
     unset file
