@@ -1,33 +1,28 @@
 #!/usr/bin/env bash
 # bash_profile
 
-#echo BASH_PROFILE SOURCED
-
+#
+#-:LOAD SHELL CONFIG
 [ -r ~/.profile ] && . ~/.profile
 
-declare -r ERROR_CLR='[31;1m'
-declare -r CLR_RST='[0;0m'
+__setBashEnvVariables () {
+    declare -r ERROR_CLR='[31;1m'
+    declare -r CLR_RST='[0;0m'
+}
 
-__getBashEnvDir ()
-{
+__getBashEnvDir () {
     dirname "$(find "${BASH_SOURCE[0]}" -exec /bin/ls -l {} \; | awk -F" -> " '{print $NF}')"
     return
 }
 
-if [[ -z "${bashenv:-}" ]]; then
-    declare -xr bashenv="$(__getBashEnvDir)"
-fi
-
-__printHeading ()
-{
+__printHeading () {
     echo -e "\\n${*:?}" \
         | sed 's:^:	:'
     echo
     return
 }
 
-_reportErr ()
-{
+__reportErr () {
     local msg
     msg="${*:-NULL}"
     if [[ "${msg}" != 'NULL' ]]; then
@@ -39,5 +34,11 @@ _reportErr ()
     return
 }
 
+__setBashEnvVariables
+
+if [[ -z "${bashenv:-}" ]]; then
+    declare -xr bashenv="$(__getBashEnvDir)"
+fi
 
 [[ -L ~/.bashrc && -r ~/.bashrc ]] && . ~/.bashrc
+
