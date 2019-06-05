@@ -2,7 +2,7 @@
 # USER SH CONFIG
 
 # shellcheck disable=2088
-[ "${1:-}" == '-v' ] \
+[ "${1:-}" = '-v' ] \
     && printf "USER PROFILE SOURCED (%s)...\n" "~/.profile"
 
 export MYNAME='Ken Dait'

@@ -4,8 +4,9 @@
 [[ "${1:-}" == '-v' ]] \
     && echo "USER BASHRC SOURCED (~/.bashrc)..."
 
+# shellcheck source=/Users/kend/Developer/bashenv
 [[ -z "${bashenv:-}" && -d "${HOME}/Developer/bashenv" ]] \
-    && . "${HOME}/Developer/bashenv"
+    && export bashenv="${HOME}/Developer/bashenv"
 
 
 ## COLORIZE ROOT PROMPT
@@ -13,6 +14,13 @@
 {
     if ((EUID==0)); then
         PS1='\h:\W \[\e[31;1m\]\u\$\[\e[0;0m\] '
+        [[ ! -d ~/.history ]] && mkdir ~/.history
+
+        export LESSHISTFILE=~/.history/less_history_sudo
+
+        if [[ ! -f "${LESSHISTFILE}" ]]; then
+            touch "${LESSHISTFILE}"
+        fi
     fi
 }
 
@@ -23,6 +31,7 @@
     ## SOURCE ALIASES
     #
     {
+        # shellcheck source=/Users/kend/Developer/bashenv/components/bash_aliases
         if [[ -r "${bashenv}/components/bash_aliases" ]]; then
             . "${bashenv}/components/bash_aliases"
         fi
@@ -47,6 +56,7 @@
             while read -r funcpath; do
                 #bn="$(basename "${funcpath}" | sed 's:\.[^.]*$::')"
                 if [[ -r "${funcpath}" ]]; then
+                    #shellcheck disable=1090
                     source "${funcpath}" \
                         && funcnames["$(basename "${funcpath}")"]="${funcpath}"
                 fi

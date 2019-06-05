@@ -1,1 +1,4 @@
 #!/usr/bin/env bash
+# bash_logout
+
+#echo "LOGGING OUT ($(tty))" | wall
