@@ -26,6 +26,7 @@ if [[ -d ~/.bashrc.d/alias_modules ]]; then
     #-:SOURCE EACH ALIAS MOD
     for a in "${loadedAliasMods[@]}"; do
         a="$(echo "$a" | tr -d '\n')"
+        #shellcheck disable=1090
         . "${a}"
     done
 fi
