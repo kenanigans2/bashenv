@@ -14,9 +14,12 @@ if [[ -d ~/.bashrc.d ]]; then
             __reportErr "Unable to source init file: ${file}"
         fi
     done
-    if [ -d ~/.bashrc.d/terms/"$(uname)"."${TERM_PROGRAM}" ]; then
+echo
+    #
+    #-:LOAD TERM_PROGRAM SPECIFIC CONFIG
+    if [ -r ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}" ]; then
         #shellcheck disable=1090
-        . ~/.bashrc.d/terms/"$(uname)"."${TERM_PROGRAM}"
+        . ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}"
     fi
 
     unset file
