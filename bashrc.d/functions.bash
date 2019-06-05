@@ -2,7 +2,7 @@
 # functions.bash
 
 __findFunctionModuleFiles ()
-{ find "${funcs}" -mindepth 1 -type f -name "[^.]*.bash"; }
+{ find "${funcs}" -mindepth 1 -maxdepth 1 -type f -name "[^.]*.bash"; }
 
 __reportLoadedFunctions ()
 {
