@@ -3,6 +3,8 @@
 
 #echo BASH_PROFILE SOURCED
 
+[ -r ~/.profile ] && . ~/.profile
+
 declare -r ERROR_CLR='[31;1m'
 declare -r CLR_RST='[0;0m'
 
