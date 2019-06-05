@@ -95,7 +95,7 @@ __reportErr () {
     msg="${*:-NULL}"
     if [[ "${msg}" != 'NULL' ]]; then
         msg="${ERROR_CLR}ERROR:${CLR_RST}\\n${msg:?}"
-        __printHeading "${msg}"
+        __printHeading "${msg}" >&2
     else
         return 1
     fi
