@@ -15,6 +15,7 @@ if [[ -d "${BASH_SOURCE[0]%.*}.d" ]]; then
 
     for f in "${sysConfigFiles[@]}"; do
         f="$(echo "$f" | tr -d '\n')"
+        #shellcheck disable=1090
         . "$f"
         unset f
     done

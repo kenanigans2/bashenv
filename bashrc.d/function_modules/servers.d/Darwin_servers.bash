@@ -2,6 +2,7 @@
 # Darwin servers
 
 __printHeading "==SERVERS=="
+#shellcheck disable=1004
 {
     __printHeading "APACHE: $(
     if (( $(pgrep httpd | wc -l | tr -dc '0-9') > 0 )); then
@@ -10,7 +11,6 @@ __printHeading "==SERVERS=="
         echo -e "[31;1mOFFLINE[0;0m"
     fi
     )"
-
     __printHeading "MYSQL: $(
     if [[ "$(brew services list | grep maria | cut -d' ' -f2)" == 'started' ]]; then
         echo -e "[32;1mONLINE[0;0m"

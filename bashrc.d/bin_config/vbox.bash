@@ -7,15 +7,17 @@ if command -v VirtualBox &> /dev/null; then
         ___vbox_listAllVMs () { VBoxManage list vms | awk -F'"' '{print $2}'; }
         ___vbox_listRunningVMs () { VBoxManage list runningvms | awk -F'"' '{print $2}'; }
         ___vbox_setVars () {
-            vmsAll=( $(___vbox_listAllVMs) )
-            vmsRunning=( $(___vbox_listRunningVMs) )
+            mapfile vmsAll < <(___vbox_listAllVMs)
+            mapfile vmsRunning < <(___vbox_listRunningVMs)
         }
         ___vbox_printStatus () {
             __printHeading "ALL VMs:"
+            #shellcheck disable=2015
             (( ${#vmsAll[@]} > 0 )) \
                 && __printParagraph -b "-" "$(echo "${vmsAll[@]}" | tr ' ' '\n')" \
                 || __printParagraph -b "-" "<NONE>"
             __printHeading "RUNNING VMs:"
+            #shellcheck disable=2015
             (( ${#vmsRunning[@]} > 0 )) \
                 && __printParagraph -b "-" "$(echo "${vmsRunning[@]}" | tr ' ' '\n')" \
                 || __printParagraph -b "-" "<NONE>"

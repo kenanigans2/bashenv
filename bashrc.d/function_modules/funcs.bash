@@ -2,6 +2,28 @@
 # funcs
 
 funcs () {
+    main () {
+        if (($#==0)); then
+            __print_user_funcs
+        else
+            local -i OPTIND
+            OPTIND=1
+            while getopts :au opt; do
+                case ${opt} in
+                    a)
+                        __print_all_funcs
+                        ;;
+                    u)
+                        __print_user_funcs
+                        ;;
+                    \?)
+                        __printErr "invalid flag -- ${OPTARG}"
+                        ;;
+                esac
+            done
+        fi
+        return
+    }
     ___list_all_func_names () {
         declare -F | cut -c12-
     }
@@ -21,24 +43,7 @@ funcs () {
         __printParagraph -b"-" -t "$(___list_all_func_names)"
     }
 
-    if (($#==0)); then
-        __print_user_funcs
-    else
-        local -i OPTIND
-        OPTIND=1
-        while getopts :au opt; do
-            case ${opt} in
-                a)
-                    __print_all_funcs
-                    ;;
-                u)
-                    __print_user_funcs
-                    ;;
-                \?)
-                    __printErr "invalid flag -- ${OPTARG}"
-                    ;;
-            esac
-        done
-    fi
+    main "$@"
+    unset -f main
     return
 }

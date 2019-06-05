@@ -31,6 +31,7 @@ if [[ -d ~/.bashrc.d ]]; then
     if [ -d ~/.bashrc.d/bin_config ]; then
         while read -r FILE; do
             #echo ">>> ${FILE}"
+            #shellcheck disable=1090
             . "${FILE}"
         done < <(find ~/.bashrc.d/bin_config -mindepth 1 -type f \
             \! \( \

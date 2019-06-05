@@ -115,6 +115,7 @@ fi
 #shellcheck source=/Users/kend/.bashrc
 [[ -L ~/.bashrc && -r ~/.bashrc ]] && . ~/.bashrc
 
+servers
+
 [[ -n "${bashenv_debug_verbosity:-}" ]] \
     && unset bashenv_debug_verbosity
-
