@@ -8,7 +8,7 @@ bashenv () {
         clear
         git status
         echo
-        tree
+        tree -C
     fi
     return
 }

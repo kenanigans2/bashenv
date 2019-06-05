@@ -14,7 +14,6 @@ if [[ -d ~/.bashrc.d ]]; then
             __reportErr "Unable to source init file: ${file}"
         fi
     done
-echo
     #
     #-:LOAD SYSTEM-SPECIFIC CONFIG
     if [ -r ~/.bashrc.d/sys/"$(uname)".bash ]; then
@@ -27,6 +26,5 @@ echo
         #shellcheck disable=1090
         . ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}.bash"
     fi
-
     unset file
 fi
