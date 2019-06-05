@@ -6,7 +6,7 @@
 {
     export MYNAME='Kenneth Dait'
     export CDPATH=.:~
-    { command -v vim && export EDITOR=vimm; } \
-        || { command -v vi && EDITOR=vim; }
-    { command -v less && export PAGER=less; }
+    { command -v vim > /dev/null && export EDITOR=vimm; } \
+        || { command -v vi > /dev/null && EDITOR=vim; }
+    { command -v less > /dev/null && export PAGER=less; }
 }

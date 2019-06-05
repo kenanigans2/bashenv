@@ -12,6 +12,8 @@ __setBashEnvVariablesAndOptions () {
     declare -r CLR_RST='[0;0m'
 }
 
+__setBashEnvVariablesAndOptions
+
 __getBashEnvDir () {
     dirname "$(find "${BASH_SOURCE[0]}" -exec /bin/ls -l {} \; | awk -F" -> " '{print $NF}')"
     return
@@ -104,8 +106,6 @@ __reportErr () {
     fi
     return
 }
-
-__setBashEnvVariablesAndOptions
 
 if [[ -z "${bashenv:-}" ]]; then
     #shellcheck disable=2155
