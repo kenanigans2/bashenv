@@ -1,20 +1,8 @@
 #!/usr/bin/env bash
 # functions.bash
 
-#echo "FILE SOURCED: ${BASH_SOURCE[0]}"
-
 __findFunctionModuleFiles ()
-{
-    find "${funcs:?}" \
-        -mindepth 1 -maxdepth 1 \
-        -type f \
-        \! \( \
-            -name "*.swp" \
-            -or -name "_*" \
-            -or -name ".*" \
-        \)
-    return
-}
+{ find "${funcs}" -mindepth 1 -type f -name "[^.]*.bash"; }
 
 __reportLoadedFunctions ()
 {
@@ -39,7 +27,7 @@ if [[ -d ~/.bashrc.d/function_modules ]]; then
         && declare -ax loadedFuncs=()
     #
     #-:LOAD FOUND FUNCTION MODULE FILES INTO ARRAY
-    mapfile loadedFuncs < <(__findFunctionModuleFiles)
+    mapfile -d ':' loadedFuncs < <(__findFunctionModuleFiles | tr '\n' ':')
     #__reportLoadedFunctions
     #
     #-:IF ARRAY NOT EMPTY, ATTEMPT TO SOURCE EACH FILE
@@ -47,6 +35,8 @@ if [[ -d ~/.bashrc.d/function_modules ]]; then
         (( ${bashenv_debug_verbosity:-1} == 0 )) \
             && __printParagraph -l "LOADING FUNCS..."
         for f in "${loadedFuncs[@]}"; do
+            f="$(echo "$f" | sed 's/:$//')"
+            #f="$(echo "$f" | tr -d '\n')"
             #shellcheck disable=1090,2015
             . "${f}" \
                 && {
@@ -61,6 +51,8 @@ if [[ -d ~/.bashrc.d/function_modules ]]; then
         done
         unset f
         echo
+    else
+        __reportErr "No function module files found"
     fi
     
 fi
