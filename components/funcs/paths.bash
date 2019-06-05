@@ -3,6 +3,7 @@
 
 paths ()
 {
+    #shellcheck disable=1004
     echo -e "${PATH//:/\\n}" \
         | nl \
         | sed -e "1i\\

@@ -13,7 +13,7 @@ truncate ()
         return 1
     fi
 
-    echo -e "${input}" | cut -c1-$(tput cols)
+    echo -e "${input}" | cut -c1-"$(tput cols)"
     
     echo "COLS: $(tput cols)"
     return
