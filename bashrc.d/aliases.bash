@@ -28,5 +28,4 @@ if [[ -d ~/.bashrc.d/alias_modules ]]; then
         a="$(echo "$a" | tr -d '\n')"
         . "${a}"
     done
-    echo
 fi

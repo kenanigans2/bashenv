@@ -36,7 +36,6 @@ if [[ -d ~/.bashrc.d/function_modules ]]; then
             && __printParagraph -l "LOADING FUNCS..."
         for f in "${loadedFuncs[@]}"; do
             f="$(echo "$f" | sed 's/:$//')"
-            #f="$(echo "$f" | tr -d '\n')"
             #shellcheck disable=1090,2015
             . "${f}" \
                 && {
@@ -50,7 +49,6 @@ if [[ -d ~/.bashrc.d/function_modules ]]; then
                 || __reportErr "UNABLE TO SOURCE FUNC MODULE: ${f}"
         done
         unset f
-        echo
     else
         __reportErr "No function module files found"
     fi
