@@ -47,7 +47,8 @@ if [[ -d ~/.bashrc.d/function_modules ]]; then
         (( ${bashenv_debug_verbosity:-1} == 0 )) \
             && __printParagraph -l "LOADING FUNCS..."
         for f in "${loadedFuncs[@]}"; do
-            . ${f} \
+            #shellcheck disable=1090,2015
+            . "${f}" \
                 && {
                     (( ${bashenv_debug_verbosity:-1} == 0 )) \
                         && eval "__printParagraph -i1 -b'-' \"$(\

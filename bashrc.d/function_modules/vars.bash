@@ -5,12 +5,16 @@ vars ()
 {
     ___vars_print_raw_vars () { declare | sed -n '/^_=/,/^{/p' | sed -e '1d' -e '$d' | sed '$d'; }
     ___vars_print_names_only () { ___vars_print_raw_vars | awk -F"=" '{print $1}'; }
+
+    #shellcheck disable=2120
     ___vars_select_on_mac () {
         if (( "${1:-}" == '--' )) && [[ "$(uname -s)" == 'Darwin' \
             && "${TERM_PROGRAM:-}" == 'Apple_Terminal' ]]; then
             osascript -e "tell app \"System Events\" to keystroke \"a\" using {command down, shift down}"
         fi
     }
+
+    #shellcheck disable=2119
     ___vars_selectOnReturn () { (( ${#FUNCNAME[@]} == 1 )) && ___vars_select_on_mac; }
 
     ___vars_printFormatted () {

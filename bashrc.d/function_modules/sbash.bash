@@ -16,9 +16,11 @@ sbash () {
     if [[ -f ~/.bash_profile && -r ~/.bash_profile ]]; then
         #
         #-:SET `bashenv_debug_verbosity' TO 0 IF VERBOSE SPECIFIED
+        #shellcheck disable=2034
         ((DEBUG==1)) && bashenv_debug_verbosity=0
         #
         #-:SOURCE FILE
+        #shellcheck source=/Users/kend/.bash_profile
         . ~/.bash_profile
     else
         __reportErr "unable to find user bash_profile -- ~/.bash_profile"
