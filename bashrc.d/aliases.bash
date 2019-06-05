@@ -6,8 +6,9 @@
 alias x='exit'
 alias c='clear'
 
+#
+#-:LOAD ALIAS MODS
 if [[ -d ~/.bashrc.d/alias_modules ]]; then
-
     #
     #-:SET VARS
     {
@@ -16,13 +17,11 @@ if [[ -d ~/.bashrc.d/alias_modules ]]; then
         declare -xa loadedAliasMods
         loadedAliasMods=()
     }
-    
     #
     #-:SET ALIAS MOD FILE ARRAY
     mapfile loadedAliasMods < <(find ~/.bashrc.d/alias_modules -type f \! \
         \( -name ".*" -or -name "*.swp" -or -name "_*" \) \
         | grep -v '^[[:blank:]]*$')
-
     #
     #-:SOURCE EACH ALIAS MOD
     for a in "${loadedAliasMods[@]}"; do
