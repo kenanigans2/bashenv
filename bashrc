@@ -9,7 +9,7 @@ if [[ -d ~/.bashrc.d ]]; then
         file="${HOME}/.bashrc.d/${ancillary:-}.bash"
         if [[ -n "${file:-}" && -f "${file}" && -r "${file}" ]]; then
             #shellcheck disable=1090
-            . "${file}"
+            . "${file}" 
         else
             __reportErr "Unable to source init file: ${file}"
         fi
