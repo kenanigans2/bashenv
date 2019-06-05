@@ -10,7 +10,7 @@ if [[ -d ~/.bashrc.d ]]; then
         if [[ -n "${file:-}" && -f "${file}" && -r "${file}" ]]; then
             . "${file}"
         else
-            _reportErr "Unable to source init file: ${file}"
+            __reportErr "Unable to source init file: ${file}"
         fi
     done
     unset file
