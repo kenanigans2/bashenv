@@ -27,14 +27,17 @@ __reportLoadedFunctions ()
 }
 
 if [[ -d ~/.bashrc.d/function_modules ]]; then
-    if [[ -z "${funcs:-}" ]]; then
-        declare -rx funcs=~/.bashrc.d/function_modules
-    fi
-
-    (( ${#loadedFuncs[@]} > 0 )) && unset loadedFuncs
-
-    declare -ax loadedFuncs=()
-
+    #
+    #-:SET FUNCS VAR IF NOT YET SET
+    [[ -z "${funcs:-}" ]] \
+        && declare -rx funcs=~/.bashrc.d/function_modules
+    #
+    #-:[RE]SET `loadedFuncs' ARRAY TO EMPTY
+    (( ${#loadedFuncs[@]} > 0 )) \
+        && unset loadedFuncs \
+        && declare -ax loadedFuncs=()
+    #
+    #-:LOAD FOUND FUNCTION MODULE FILES INTO ARRAY
     mapfile loadedFuncs < <(__findFunctionModuleFiles)
     #__reportLoadedFunctions
 
