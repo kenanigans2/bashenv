@@ -51,11 +51,19 @@ alias c='clear;echo'
 
 if [[ "$(uname -s)" == 'Darwin' ]]; then
     alias scpt='osascript'
+    alias scptcat='osascript <<EOF'
+    alias scpte='osascript -e'
     alias spro='system_profiler'
     
     if command -v brew &> /dev/null; then
         alias cask='brew cask'
         alias services='brew services'
+        alias brews='brew search'
+        alias brewh='brew home'
+        alias brewi='brew info'
+        alias caski='brew cask info'
+        alias caskh='brew cask home'
     fi
+
 fi
 
