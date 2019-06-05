@@ -9,10 +9,10 @@ module.exports = {
     updateChannel: 'stable',
 
     // default font size in pixels for all tabs
-    fontSize: 14,
+    fontSize: 15,
 
     // font family with optional fallbacks
-    fontFamily: 'Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
+    fontFamily: '"Roboto Mono", Menlo, "DejaVu Sans Mono", Consolas, "Lucida Console", monospace',
 
     // default font weight: 'normal' or 'bold'
     fontWeight: 'normal',
@@ -21,32 +21,33 @@ module.exports = {
     fontWeightBold: 'bold',
 
     // line height as a relative unit
-    lineHeight: 1,
+    lineHeight: 1.05,
 
     // letter spacing as a relative unit
-    letterSpacing: 0,
+    letterSpacing: 0.25,
 
     // terminal cursor background color and opacity (hex, rgb, hsl, hsv, hwb or cmyk)
     cursorColor: 'rgba(248,28,229,0.8)',
 
     // terminal text color under BLOCK cursor
-    cursorAccentColor: '#000',
+    cursorAccentColor: 'green',
 
     // `'BEAM'` for |, `'UNDERLINE'` for _, `'BLOCK'` for █
     cursorShape: 'BLOCK',
 
     // set to `true` (without backticks and without quotes) for blinking cursor
-    cursorBlink: false,
+    cursorBlink: true,
 
     // color of the text
     foregroundColor: '#fff',
 
     // terminal background color
     // opacity is only supported on macOS
-    backgroundColor: 'rgba(30,30,30,0.8)',
+    backgroundColor: 'rgba(30,30,30,0.9)',
 
     // terminal selection color
-    selectionColor: 'rgba(248,28,229,0.3)',
+    // selectionColor: 'rgba(248,28,229,0.3)',
+    selectionColor: 'rgba(250,10,10,0.2)',
 
     // border color (window, tabs)
     borderColor: '#333',
@@ -67,7 +68,8 @@ module.exports = {
     showWindowControls: '',
 
     // custom padding (CSS format, i.e.: `top right bottom left`)
-    padding: '12px 14px',
+    // padding: '12px 14px',
+    padding: '1em 1.5em',
 
     // the full list. if you're going to provide the full color palette,
     // including the 6 x 6 color cubes and the grayscale map, just provide
@@ -107,7 +109,7 @@ module.exports = {
 
     // for setting shell arguments (i.e. for using interactive shellArgs: `['-i']`)
     // by default `['--login']` will be used
-    shellArgs: ['--login'],
+    shellArgs: ['--init-file','/Users/kend/Developer/bashenv2/bash_profile'],
 
     // for environment variables
     env: {},
@@ -137,7 +139,17 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: [],
+  plugins: [
+    'hyper-statusline'
+  ],
+
+  // [hyper-statusLine config](https://github.com/henrikdahl/hyper-statusline#config)
+  hyperStatusLine: {
+    dirtyColor: 'salmon',
+    aheadColor: 'ivory',
+    footerTransparency: false,
+  },
+
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here

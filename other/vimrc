@@ -5,7 +5,10 @@ colorscheme industry
 
 set number autoindent ruler
 
-set ts=4 sw=4 sts=4 et
+set tabstop=4 shiftwidth=4 softtabstop=4 expandtab
 
-set hls
+set hlsearch
 
+set foldmethod=indent
+
+"setlocal spell spelllang=en_us
