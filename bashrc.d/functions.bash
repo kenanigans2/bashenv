@@ -19,6 +19,7 @@ __findFunctionModuleFiles ()
 __reportLoadedFunctions ()
 {
     __printHeading "FUNCS (${#loadedFuncs[@]}):"
+    local f
     for f in "${loadedFuncs[@]}"; do
         echo -e "\\t- ${f}"
     done
@@ -57,7 +58,9 @@ if [[ -d ~/.bashrc.d/function_modules ]]; then
                     } \
                 || __reportErr "UNABLE TO SOURCE FUNC MODULE: ${f}"
         done
+        unset f
         echo
     fi
     
 fi
+
