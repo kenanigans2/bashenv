@@ -40,11 +40,24 @@ if [[ -d ~/.bashrc.d/function_modules ]]; then
     #-:LOAD FOUND FUNCTION MODULE FILES INTO ARRAY
     mapfile loadedFuncs < <(__findFunctionModuleFiles)
     #__reportLoadedFunctions
-
+    #
+    #-:IF ARRAY NOT EMPTY, ATTEMPT TO SOURCE EACH FILE
     if (( ${#loadedFuncs[@]} > 0 )); then
+        (( ${bashenv_debug_verbosity:-1} == 0 )) \
+            && __printParagraph -l "LOADING FUNCS..."
         for f in "${loadedFuncs[@]}"; do
-            . ${f}
+            . ${f} \
+                && {
+                    (( ${bashenv_debug_verbosity:-1} == 0 )) \
+                        && eval "__printParagraph -i1 -b'-' \"$(\
+                            basename "${f}" \
+                                | sed 's:\.bash$::'\
+                            )\"" \
+                        || echo -n
+                    } \
+                || __reportErr "UNABLE TO SOURCE FUNC MODULE: ${f}"
         done
+        echo
     fi
     
 fi
