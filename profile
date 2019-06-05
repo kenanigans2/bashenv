@@ -1,14 +1,12 @@
 #!/usr/bin/env sh
 # profile
 
-shopt -s cdable_vars extglob globstar
-
 #
 #-:SET VARS
 {
     export MYNAME='Kenneth Dait'
     export CDPATH=.:~
-    { which vimm &> /dev/null && export EDITOR=vimm; } \
-        || { which vi &> /dev/null && EDITOR=vim; }
-    { which less &> /dev/null && export PAGER=less; }
+    { command -v vim && export EDITOR=vimm; } \
+        || { command -v vi && EDITOR=vim; }
+    { command -v less && export PAGER=less; }
 }

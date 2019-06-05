@@ -3,9 +3,11 @@
 
 #
 #-:LOAD SHELL CONFIG
+#shellcheck source=/Users/kend/.profile
 [ -r ~/.profile ] && . ~/.profile
 
-__setBashEnvVariables () {
+__setBashEnvVariablesAndOptions () {
+    shopt -s cdable_vars extglob globstar
     declare -r ERROR_CLR='[31;1m'
     declare -r CLR_RST='[0;0m'
 }
@@ -77,6 +79,7 @@ __printParagraph () {
     #
     #-:PROCESS `$msg' WITH INDENTS
     while ((INDENT_LEVEL > 0)); do
+        #shellcheck disable=2001
         msg="$(echo "${msg}" | sed "s:^:	${bulletChar:+$bulletChar }:")"
         ((INDENT_LEVEL-=1))
     done
@@ -102,12 +105,14 @@ __reportErr () {
     return
 }
 
-__setBashEnvVariables
+__setBashEnvVariablesAndOptions
 
 if [[ -z "${bashenv:-}" ]]; then
+    #shellcheck disable=2155
     declare -xr bashenv="$(__getBashEnvDir)"
 fi
 
+#shellcheck source=/Users/kend/.bashrc
 [[ -L ~/.bashrc && -r ~/.bashrc ]] && . ~/.bashrc
 
 if [[ -n "${bashenv_debug_verbosity:-}" ]]; then
