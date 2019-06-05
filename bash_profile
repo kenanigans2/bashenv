@@ -3,10 +3,6 @@
 
 #echo BASH_PROFILE SOURCED
 
-if [[ -z "${bashenv:-}" ]]; then
-    declare -xr bashenv="$(__getBashEnvDir)"
-fi
-
 declare -r ERROR_CLR='[31;1m'
 declare -r CLR_RST='[0;0m'
 
@@ -15,6 +11,10 @@ __getBashEnvDir ()
     dirname "$(find "${BASH_SOURCE[0]}" -exec /bin/ls -l {} \; | awk -F" -> " '{print $NF}')"
     return
 }
+
+if [[ -z "${bashenv:-}" ]]; then
+    declare -xr bashenv="$(__getBashEnvDir)"
+fi
 
 __printHeading ()
 {
