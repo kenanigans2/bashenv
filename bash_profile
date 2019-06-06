@@ -10,9 +10,8 @@ __setBashEnvVariablesAndOptions () {
     shopt -s cdable_vars extglob globstar
     declare -r ERROR_CLR='[31;1m'
     declare -r CLR_RST='[0;0m'
+    export FCEDIT=${EDITOR:-vi}
 }
-
-__setBashEnvVariablesAndOptions
 
 __getBashEnvDir () {
     dirname "$(find "${BASH_SOURCE[0]}" -exec /bin/ls -l {} \; | awk -F" -> " '{print $NF}')"
@@ -107,15 +106,33 @@ __reportErr () {
     return
 }
 
-if [[ -z "${bashenv:-}" ]]; then
-    #shellcheck disable=2155
-    declare -xr bashenv="$(__getBashEnvDir)"
-fi
+#
+#-:SET SHELL VARIABLES
+{
+  __setBashEnvVariablesAndOptions
+  if [[ -z "${bashenv:-}" ]]; then
+      #shellcheck disable=2155
+      declare -xr bashenv="$(__getBashEnvDir)"
+  fi
+}
 
-#shellcheck source=/Users/kend/.bashrc
-[[ -L ~/.bashrc && -r ~/.bashrc ]] && . ~/.bashrc
+#
+#-:LOAD SHARED CONFIG IN BASHRC
+{
+  #shellcheck source=/Users/kend/.bashrc
+  [[ -L ~/.bashrc && -r ~/.bashrc ]] \
+    && . ~/.bashrc
+}
 
-servers
+#
+#-:HANDLE VERBOSE OUTPUT
+{
+  if [[ -n ${bashenv_debug_verbosity} ]] \
+    && (( bashenv_debug_verbosity == 0 )); then
+    servers
+  fi
 
-[[ -n "${bashenv_debug_verbosity:-}" ]] \
+  [[ -n "${bashenv_debug_verbosity:-}" ]] \
     && unset bashenv_debug_verbosity
+}
+
