@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 # Darwin config
 
-echo "SYS: macOS"
+[[ -n ${bashenv_debug_verbosity} ]] \
+  && (( bashenv_debug_verbosity == 0 )) \
+  && echo "SYS: macOS"
+
 if [[ -d "${BASH_SOURCE[0]%.*}.d" ]]; then
 
     [[ -z "${sysConfig:-}" ]] \
