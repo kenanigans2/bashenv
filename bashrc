@@ -12,6 +12,7 @@ if [[ -d ~/.bashrc.d ]]; then
     }
     #
     #-:LOAD SYSTEM-SPECIFIC CONFIG
+    #shellcheck disable=1004
     {
       if [ -r ~/.bashrc.d/sys/"$(uname)".bash ]; then
           #shellcheck disable=1090
@@ -21,6 +22,7 @@ if [[ -d ~/.bashrc.d ]]; then
       #-:LOAD TERM_PROGRAM SPECIFIC CONFIG
       if [ -r ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}.bash" ]; then
           #shellcheck disable=1090
+            #shellcheck disable=2154
           if (( bashenv_debug_verbosity == 0 )); then
             . ~/.bashrc.d/terms/"$(uname).${TERM_PROGRAM:-}.bash"
           else

@@ -7,10 +7,10 @@
 [ -r ~/.profile ] && . ~/.profile
 
 __setBashEnvVariablesAndOptions () {
-    shopt -s cdable_vars extglob globstar
-    declare -r ERROR_CLR='[31;1m'
-    declare -r CLR_RST='[0;0m'
-    export FCEDIT=${EDITOR:-vi}
+shopt -s cdable_vars extglob globstar
+declare -r ERROR_CLR='[31;1m'
+declare -r CLR_RST='[0;0m'
+export FCEDIT=${EDITOR:-vi}
 }
 
 __getBashEnvDir () {
@@ -19,9 +19,7 @@ __getBashEnvDir () {
 }
 
 __printHeading () {
-    echo -e "\\n${*:?}" \
-        | sed 's:^:	:'
-    echo
+    echo -e "\\n${*:?}\\n" | sed 's:^:	:'
     return
 }
 
@@ -123,6 +121,17 @@ __reportErr () {
   [[ -L ~/.bashrc && -r ~/.bashrc ]] \
     && . ~/.bashrc
 }
+#
+#-:PATH
+{
+    export PS1='[\[\e[35;1m\]\W\[\[\e[0;0m\]]\$ '
+    if
+        ! echo -e "${PATH//:/\\n}" | grep -q "\/usr\/local\/bin" \
+            && [[ -d /usr/local/bin ]]
+    then
+        PATH="/usr/local/bin${PATH:+:$PATH}"
+    fi
+}
 
 #
 #-:HANDLE VERBOSE OUTPUT
@@ -135,4 +144,6 @@ __reportErr () {
   [[ -n "${bashenv_debug_verbosity:-}" ]] \
     && unset bashenv_debug_verbosity
 }
+
+hr -t
 

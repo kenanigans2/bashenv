@@ -5,6 +5,10 @@
 
 alias x='exit'
 alias c='clear'
+alias truncate='cut -c1-$(tput cols)'
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
 
 #
 #-:LOAD ALIAS MODS
