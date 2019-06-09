@@ -5,6 +5,12 @@
 
 if [[ -d ~/.bashrc.d ]]; then
     #
+    #-: LOCATION VARS
+    {
+        [[ -r ~/.bashrc.d/locationVars.bash ]] \
+            && . ~/.bashrc.d/locationVars.bash
+    }
+    #
     #-:LOAD SYSTEM-SPECIFIC CONFIG
     {
       if [ -r ~/.bashrc.d/sys/"$(uname)".bash ]; then
